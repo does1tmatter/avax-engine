@@ -45,10 +45,28 @@ const order = [
 // Contract address to fetch from
 const contractAddress = '0x357928B721890Ed007142e45502A323827caF812'
 
+
+// Override traits for tokenID
+const overrideTraits = [
+  {
+    id: 1,
+    newTraits: [
+      { trait_type: 'Background', value: 'Blueish' },
+    ]
+  },
+  {
+    id: 2,
+    newTraits: [
+      { trait_type: 'Background', value: 'Mint' },
+    ]
+  },
+]
+
 module.exports = {
   imageSize,
   contractAddress,
   extension,
   order,
-  defaultMetadata
+  defaultMetadata,
+  overrideTraits
 }

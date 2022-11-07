@@ -6,7 +6,7 @@ const path = require('path')
 const isLocal = typeof process.pkg === 'undefined'
 const basePath = isLocal ? process.cwd() : path.dirname(process.execPath)
 
-const { imageSize, contractAddress, extension, order, defaultMetadata } = require(path.join(basePath, '/config.js'))
+const { imageSize, contractAddress, extension, order, defaultMetadata, overrideTraits } = require(path.join(basePath, '/config.js'))
 const abi = require(path.join(basePath, '/abi.json'))
 
 const { createCanvas, loadImage } = require(path.join(basePath,"/node_modules/canvas"))
@@ -72,6 +72,13 @@ async function* iterator(maxValue) {
     const data = await getMetadata(i)
     data.image = `${defaultMetadata.image}/${i}.${extension}`
     data.description = defaultMetadata.description
+    if (overrideTraits.find(x => x.id === i)) {
+      const override = overrideTraits.find(x => x.id === i).newTraits
+      override.forEach(trait => {
+        const index = data.attributes.findIndex((el) => el.trait_type === trait.trait_type)
+        data.attributes[index].value = trait.value
+      })
+    }
     const orderedData = orderMetadata(order, data.attributes)
     orderedData.forEach(async (attribute) => {
       const image = await loadImage(`${basePath}/traits/${attribute.trait_type}/${attribute.value}.${extension}`)

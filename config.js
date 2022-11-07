@@ -4,7 +4,11 @@
 
   Edit this configuration file as needed.
 
-  Populate /traits/ folder with trait assets.
+  Populate avax-engine/traits/ folder with trait assets.
+  For example:
+  /avax-engine/traits/Background/Trait_Name.png
+  /avax-engine/traits/Base/Trait_Name.png
+  ...
 
   To begin generating run "npm run generate"
   Generated files will appear in /build/ folder.
